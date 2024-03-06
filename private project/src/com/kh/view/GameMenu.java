@@ -42,30 +42,30 @@ public class GameMenu {
     
     public void adminMenu() {
     	while(true) {
-    	System.out.println("======== 관리자 모드 =========");
-        System.out.println("1. 생성 모드");
-        System.out.println("2. 수정 모드");
-        System.out.println("3. 삭제 모드");
-        System.out.println("0. 메인 메뉴로 돌아가기");
-        System.out.print("메뉴 입력 : ");
-        int menu = sc.nextInt();
-        sc.nextLine();
-        switch(menu) {
-        case 1:
-        	this.adminCreateMenu();
-        	break;
-        case 2:
-        	
-        	break;
-        case 3:
-        	this.adminDeleteMenu();
-        	break;
-        case 0:
-        	System.out.println("메인 메뉴로 돌아갑니다.");
-        	return;
-        default:
-        	System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
-        }
+	    	System.out.println("======== 관리자 모드 =========");
+	        System.out.println("1. 생성 모드");
+	        System.out.println("2. 수정 모드");
+	        System.out.println("3. 삭제 모드");
+	        System.out.println("0. 메인 메뉴로 돌아가기");
+	        System.out.print("메뉴 입력 : ");
+	        int menu = sc.nextInt();
+	        sc.nextLine();
+	        switch(menu) {
+	        case 1:
+	        	this.adminCreateMenu();
+	        	break;
+	        case 2:
+	        	
+	        	break;
+	        case 3:
+	        	this.adminDeleteMenu();
+	        	break;
+	        case 0:
+	        	System.out.println("메인 메뉴로 돌아갑니다.");
+	        	return;
+	        default:
+	        	System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+	        }
     	}
     }
     

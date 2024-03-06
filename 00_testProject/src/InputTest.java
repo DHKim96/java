@@ -1,5 +1,7 @@
-import java.util.Scanner; //호출하려면 먼저 가져와야 함
 //1. Scanner를 사용하기 위해서 외부로부터 가져온다.
+
+import java.util.Scanner;
+
 public class InputTest {
 	/*
 	 * 키보드로 값을 입력하는 방법
