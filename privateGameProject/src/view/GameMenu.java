@@ -18,10 +18,12 @@ public class GameMenu {
 	// ============================== 시작 메뉴 ==========================
 	public void mainMenu() {
 		while (true) {
-            System.out.println("========== 시작 메뉴 ============");
-            System.out.println("1. 관리자 모드");
-            System.out.println("2. 플레이어 모드");
-            System.out.println("0. 종료");
+			System.out.println("╔════════════════════════════════════════╗");
+            System.out.println("║                  시작메뉴                ║");
+            System.out.println("║             1. 관리자 메뉴                ║");  
+            System.out.println("║             2. 플레이어 메뉴              ║");
+            System.out.println("║             0. 종료                     ║");
+            System.out.println("╚════════════════════════════════════════╝");
             System.out.print("메뉴 입력 : ");
             int menu = sc.nextInt();
             sc.nextLine();
@@ -34,10 +36,10 @@ public class GameMenu {
                     this.playerMenu();
                     break;
                 case 0:
-                    System.out.println("이용해주셔서 감사합니다. 다음에 또 방문해주세요.");
+                    System.out.println("═══════════════════이용해주셔서 감사합니다. 다음에 또 방문해주세요.═══════════════════");
                     return;
                 default:
-                    System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+                    System.out.println("! 잘못 입력하셨습니다. 다시 입력해주세요. !");
             }
         }
 	}
@@ -46,12 +48,14 @@ public class GameMenu {
 	// ==============================관리자 모드================================
 	public void adminMenu() {
 		while(true) {
-	    	System.out.println("======== 관리자 모드 =========");
-	        System.out.println("1. 생성 모드");
-	        System.out.println("2. 수정 모드");
-	        System.out.println("3. 삭제 모드");
-	        System.out.println("4. 조회 모드");
-	        System.out.println("0. 시작 메뉴로 돌아가기");
+			System.out.println("╔════════════════════════════════════════╗");
+	        System.out.println("║               관리자 메뉴                 ║");
+	        System.out.println("║             1. 생성 메뉴                 ║");  
+	        System.out.println("║             2. 수정 메뉴                 ║");
+	        System.out.println("║             3. 삭제 메뉴                 ║");
+	        System.out.println("║             4. 조회 모드                 ║");
+	        System.out.println("║             0. 시작 메뉴로 돌아가기         ║");
+	        System.out.println("╚════════════════════════════════════════╝");
 	        System.out.print("메뉴 입력 : ");
 	        int menu = sc.nextInt();
 	        sc.nextLine();
@@ -69,21 +73,23 @@ public class GameMenu {
 	        	this.adminSelectMenu();
 	        	break;
 	        case 0:
-	        	System.out.println("메인 메뉴로 돌아갑니다.");
+	        	System.out.println("=======메인 메뉴로 돌아갑니다.=======");
 	        	return;
 	        default:
-	        	System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+	        	System.out.println("!! 잘못 입력하셨습니다. 다시 입력해주세요. !!");
 	        }
     	}
 	}
 
 	public void adminDeleteMenu() {
 		while (true) {
-            System.out.println("======== 삭제 모드 =========");
-            System.out.println("1. 플레이어 삭제");
-            System.out.println("2. 적 삭제");
-            System.out.println("3. 맵 삭제");
-            System.out.println("0. 뒤로 가기");
+			System.out.println("╔════════════════════════════════════════╗");
+	        System.out.println("║               삭제 메뉴                  ║");
+	        System.out.println("║             1. 플레이어 삭제              ║");  
+	        System.out.println("║             2. 적 삭제                   ║");
+	        System.out.println("║             3. 맵 삭제                   ║");
+	        System.out.println("║             0. 뒤로 가기	                 ║");
+	        System.out.println("╚════════════════════════════════════════╝");
             System.out.print("메뉴 입력 : ");
             int menu = sc.nextInt();
             sc.nextLine();
@@ -99,7 +105,7 @@ public class GameMenu {
                     gc.DeleteMap(this.inputName());
                     break;
                 case 0:
-                	System.out.println("관리자 메뉴로 돌아갑니다.");
+                	System.out.println("=======관리자 메뉴로 돌아갑니다.=======");
                     return;
                 default:
                     System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
@@ -109,11 +115,13 @@ public class GameMenu {
 
 	public void adminUpdateMenu() {
 		while (true) {
-            System.out.println("======== 수정 모드 =========");
-            System.out.println("1. 플레이어 수정");
-            System.out.println("2. 적 수정");
-            System.out.println("3. 맵 수정");
-            System.out.println("0. 뒤로 가기");
+			System.out.println("╔════════════════════════════════════════╗");
+	        System.out.println("║               수정 메뉴                  ║");
+	        System.out.println("║             1. 플레이어 수정              ║");  
+	        System.out.println("║             2. 적 수정                   ║");
+	        System.out.println("║             3. 맵 수정                   ║");
+	        System.out.println("║             0. 뒤로 가기	                 ║");
+	        System.out.println("╚════════════════════════════════════════╝");
             System.out.print("메뉴 입력 : ");
             int menu = sc.nextInt();
             sc.nextLine();
@@ -129,7 +137,7 @@ public class GameMenu {
                     this.updateMap();
                     break;
                 case 0:
-                	System.out.println("관리자 메뉴로 돌아갑니다.");
+                	System.out.println("=======관리자 메뉴로 돌아갑니다.=======");
                     return;
                 default:
                     System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
@@ -139,12 +147,14 @@ public class GameMenu {
 
 	public void adminInsertMenu() {
 		while (true) {
-            System.out.println("======== 생성 모드 =========");
-            System.out.println("1. 플레이어 생성");
-            System.out.println("2. 적 생성");
-            System.out.println("3. 맵 생성");
-            System.out.println("4. 몬스터를 맵에 추가하기");
-            System.out.println("0. 뒤로 가기");
+			System.out.println("╔════════════════════════════════════════╗");
+	        System.out.println("║               생성 메뉴                  ║");
+	        System.out.println("║             1. 플레이어 생성              ║");  
+	        System.out.println("║             2. 적 생성                   ║");
+	        System.out.println("║             3. 맵 생성                   ║");
+	        System.out.println("║             4. 몬스터를 맵에 추가하기        ║");
+	        System.out.println("║             0. 뒤로 가기	                 ║");
+	        System.out.println("╚════════════════════════════════════════╝");
             System.out.print("메뉴 입력 : ");
             int menu = sc.nextInt();
             sc.nextLine();
@@ -173,11 +183,13 @@ public class GameMenu {
 	
 	public void adminSelectMenu() {
 		while (true) {
-            System.out.println("======== 조회 모드 =========");
-            System.out.println("1. 플레이어 전체 조회");
-            System.out.println("2. 적 전체 조회");
-            System.out.println("3. 맵 전체 조회");
-            System.out.println("0. 뒤로 가기");
+			System.out.println("╔════════════════════════════════════════╗");
+	        System.out.println("║               조회 메뉴                  ║");
+	        System.out.println("║             1. 플레이어 전체 조회          ║");  
+	        System.out.println("║             2. 적 전체 조회               ║");
+	        System.out.println("║             3. 맵 전체 조회               ║");
+	        System.out.println("║             0. 뒤로 가기	                 ║");
+	        System.out.println("╚════════════════════════════════════════╝");
             System.out.print("메뉴 입력 : ");
             int menu = sc.nextInt();
             sc.nextLine();
@@ -193,7 +205,7 @@ public class GameMenu {
                     gc.selectMaps();
                     break;
                 case 0:
-                	System.out.println("관리자 메뉴로 돌아갑니다.");
+                	System.out.println("==========관리자 메뉴로 돌아갑니다.========");
                     return;
                 default:
                     System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
@@ -204,33 +216,35 @@ public class GameMenu {
 	// ===============================플레이어 모드 ===========================
 	
 	private void playerMenu() {
-		 System.out.println("=========== 플레이어 모드 ==============");
-	        System.out.println("1. 게임 시작");
-	        System.out.println("2. 전체 플레이어 정보 보기");
-	        System.out.println("0. 게임 종료");
-	        System.out.print("메뉴 입력 : ");
-	        int menu = sc.nextInt();
-	        sc.nextLine();
+		System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║               플레이어 모드               ║");
+        System.out.println("║             1. 게임 시작	                 ║");  
+        System.out.println("║             2. 전체 캐릭터 정보 조회        ║");
+        System.out.println("║             0. 게임 종료                 ║");
+        System.out.println("╚════════════════════════════════════════╝");
+        System.out.print("메뉴 입력 : ");
+        int menu = sc.nextInt();
+        sc.nextLine();
 
-	        switch (menu) {
-	            case 1:
-	            	this.startGame();
-	                break;
-	            case 2:
-	                gc.selectPlayers();
-	                break;
-	            case 0:
-	                System.out.println("이용해주셔서 감사합니다. 다음에 또 방문해주세요.");
-	                return;
-	            default:
-	                System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
-	        }
+        switch (menu) {
+            case 1:
+            	this.startGame();
+                break;
+            case 2:
+                gc.selectPlayers();
+                break;
+            case 0:
+                System.out.println("════════════════════════════이용해주셔서 감사합니다. 다음에 또 방문해주세요.════════════════════════════");
+                return;
+            default:
+                System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+        }
 	}
 	
 	
 	
 	public void createPlayer() {
-		System.out.println("======= 플레이어 생성 =========");
+		System.out.println("================= 플레이어 생성 =======================");
 		System.out.print("캐릭터의 이름을 입력하세요:");
         String name = sc.nextLine();
 
@@ -274,7 +288,7 @@ public class GameMenu {
 	}
 	
 	public void createEnemy() {
-		System.out.println("============ 적 생성 ============");
+		System.out.println("========================== 적 생성 ==============================");
 		System.out.print("몬스터 이름: ");
         String name = sc.nextLine();
         System.out.print("몬스터 체력: ");
@@ -297,7 +311,7 @@ public class GameMenu {
 	}
 
 	public void createMap() {
-		System.out.println("======== 맵 생성 =========");
+		System.out.println("=========================== 맵 생성 ===================================");
 		System.out.print("맵 이름 : ");
         String mapName = sc.nextLine();
         System.out.print("맵 타입 : ");
@@ -311,7 +325,7 @@ public class GameMenu {
 	
 	
 	public void updatePlayer() {
-		System.out.println("======= 플레이어 수정 =========");
+		System.out.println("======== 플레이어 수정 =========");
 		System.out.print("캐릭터의 이름을 입력하세요:");
         String name = sc.nextLine();
         // 있는 이름인지 처리할 것
@@ -399,9 +413,9 @@ public class GameMenu {
 	
 	//몬스터를 추가하고 싶은 맵을 고르는 메소드
 	public void putEnemiesInMaps() {
-		System.out.println("몬스터를 추가하고 싶은 맵을 고르세요");
+		System.out.println("====================몬스터를 추가하고 싶은 맵 선택=======================");
 		gc.selectMaps();
-		System.out.println("맵 번호 : ");
+		System.out.print("맵 번호 : ");
 		int mId = sc.nextInt();
 		sc.nextLine();
 		Maps m = gc.selectMap(mId);
@@ -410,18 +424,18 @@ public class GameMenu {
 	
 	// 맵에 추가하고 싶은 몬스터들을 고르는 메소드
 	public void putEnemies(Maps m) {
-		System.out.println("========== 맵에 추가하고 싶은 몬스터 선택 =========");
+		System.out.println("================ 맵에 추가하고 싶은 몬스터 선택 ==================");
 		Enemy e = null;
 		gc.selectEnemies();
 		while(true) {
-			System.out.println("몬스터의 번호 입력 : ");
+			System.out.print("몬스터의 번호 입력 : ");
 			int select = sc.nextInt();
 			sc.nextLine();
 			e = gc.selectEnemy(select);
 			
 			gc.insertMaps_Enemies(m, e);
 			
-			System.out.println("계속 추가하시겠습니까?(y/n) : ");
+			System.out.print("계속 추가하시겠습니까?(y/n) : ");
 			char c = sc.next().charAt(0);
 			sc.nextLine();
 			if(c == 'n') {
@@ -443,17 +457,17 @@ public class GameMenu {
 		Player player = new Player();
 		Maps m = new Maps();
 		
-		System.out.println("======= 게임을 시작합니다. ========");
+		System.out.println("===============!! 게임을 시작합니다. !!=======================");
 		
 		int select = this.selectPlayerIdForPlay();
 		
 		player = this.selectPlayerByPlayerId(select);
 		
 		while(true) {
-			System.out.println("======= 원하시는 맵에 입장합니다. =========");
+			System.out.println("============== 원하시는 맵에 입장합니다. ==============");
 			int mId = this.selectMapIdForPlay();
 			m = gc.selectMap(mId);
-			System.out.println(m.getMapId() + "에 입장합니다!");
+			System.out.println(m.getMapId() + "에 입장");
 			if(m.getMapType().equals("던전")) {
 				ArrayList<Enemy> list = new ArrayList<>();
 				list = gc.selectEnemiesFromMaps_Enemies(m);
@@ -472,7 +486,7 @@ public class GameMenu {
 	
 	// ====================
 	public char keepFightOrRunaway() {
-		System.out.println("계속 사냥하시겠습니까?(y/n)");
+		System.out.print("계속 사냥하시겠습니까?(y/n)");
 		char c = sc.next().charAt(0);
 		return c;
 	}
@@ -480,10 +494,22 @@ public class GameMenu {
 	//================== 응답 화면 =================
 	
 	
+	public void ascii() {
+		System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║               관리자 메뉴                 ║");
+        System.out.println("║			  1. 생성 메뉴					 ║");  
+        System.out.println("║			  2. 수정 메뉴					 ║");
+        System.out.println("║			  3. 삭제 메뉴					 ║");
+        System.out.println("║			  4. 조회 모드					 ║");
+        System.out.println("║			  0. 시작 메뉴로 돌아가기		 ║");
+        System.out.println("╚════════════════════════════════════════╝");
+	}
+	
+	
 	public int selectMapIdForPlay() {
 		System.out.println("========== 입장할 맵을 선택해주세요 =========");
 		gc.selectMaps();
-		System.out.println("맵 번호 입력 : ");
+		System.out.print("맵 번호 입력 : ");
 		int select = sc.nextInt();
 		sc.nextLine();
 		return select;
