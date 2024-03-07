@@ -115,7 +115,141 @@ public class GameDao {
 		
 		return result;
 	}
-
+	
+	public int insertMaps_Enemies(Connection conn, Maps m, Enemy en) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = "INSERT INTO MAPS_ENEMIES VALUES(? , ?)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, m.getMapId());
+			pstmt.setInt(2, en.geteId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public Player selectPlayer(Connection conn, int id) {
+		Player p = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = "SELECT * FROM PLAYERS WHERE PLAYER_ID = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, id);
+			rset = pstmt.executeQuery();
+			
+			
+			
+			if(rset.next()) {
+				p = new Player();
+				
+				p.setpNo(rset.getInt("PLAYER_ID"));
+				p.setpName(rset.getString("PLAYER_NAME"));
+				p.setJob(rset.getString("PJOB"));
+				p.setLevel(rset.getInt("PLEVEL"));
+				p.setMaxExperience(rset.getInt("MAX_EXPERIENCE"));
+		        p.setExperience(rset.getInt("EXPERIENCE"));
+		        p.setMaxHp(rset.getInt("MAX_HP"));
+		        p.setHp(rset.getInt("HP"));
+		        p.setMaxMp(rset.getInt("MAX_MP"));
+		        p.setMp(rset.getInt("MP"));
+		        p.setStrength(rset.getInt("STRENGTH"));
+		        p.setIntelligence(rset.getInt("INTELLIGENCE"));
+		        p.setAgility(rset.getInt("AGILITY"));
+		        p.setMoney(rset.getInt("MONEY"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return p;
+	}
+	
+	public Enemy selectEnemy(Connection conn, int id) {
+		Enemy en = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = "SELECT * FROM ENEMIES WHERE ENEMY_ID = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				en = new Enemy();
+				en.seteId(rset.getInt("ENEMY_ID"));
+				en.setName(rset.getString("ENEMY_NAME"));
+				en.setHealth(rset.getInt("HEALTH"));
+				en.setStrength(rset.getInt("STRENGTH"));
+				en.setAgility(rset.getInt("AGILITY"));
+				en.setExperience(rset.getInt("EXPERIENCE"));
+				en.setMoney(rset.getInt("MONEY"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return en;
+	}
+	
+	public Maps selectMap(Connection conn, int id) {
+		Maps m = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = "SELECT * FROM MAPS WHERE MAP_ID = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, id);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Maps();
+				m.setMapId(rset.getInt("MAP_ID"));
+				m.setMapName(rset.getString("MAP_NAME"));
+				m.setMapType(rset.getString("MAP_TYPE"));
+				m.setRequiredLevel(rset.getInt("REQUIRED_LEVEL"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return m;
+	}
+	
 	
 	public ArrayList<Player> selectPlayers(Connection conn) {
 		ArrayList<Player> list = new ArrayList<>();
@@ -128,6 +262,7 @@ public class GameDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
 			
 			rset = pstmt.executeQuery();
 			
@@ -161,7 +296,6 @@ public class GameDao {
 		return list;
 	}
 
-	
 	public ArrayList<Maps> selectMaps(Connection conn) {
 		ArrayList<Maps> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -229,7 +363,45 @@ public class GameDao {
 		return list;
 	}
 
-	
+	public ArrayList<Enemy> selectEnemiesFromMaps_Enemies(Connection conn, Maps m) {
+		ArrayList<Enemy> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = "SELECT ENEMY_ID, ENEMY_NAME, HEALTH, STRENGTH, AGILITY, EXPERIENCE, MONEY "
+				+ "FROM MAPS_ENEMIES "
+				+ "JOIN ENEMIES USING (ENEMY_ID)"
+				+ "WHERE MAP_ID = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, m.getMapId());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Enemy en = new Enemy();
+				en.seteId(rset.getInt("ENEMY_ID"));
+				en.setName(rset.getString("ENEMY_NAME"));
+				en.setHealth(rset.getInt("HEALTH"));
+				en.setStrength(rset.getInt("STRENGTH"));
+				en.setAgility(rset.getInt("AGILITY"));
+				en.setExperience(rset.getInt("EXPERIENCE"));
+				en.setMoney(rset.getInt("MONEY"));
+				list.add(en);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 	
 	public int updatePlayer(Connection conn, Player p) {
 		int result = 0;
@@ -372,7 +544,6 @@ public class GameDao {
 		}
 		return result;
 	}
-	
-	
-	
+
+
 }

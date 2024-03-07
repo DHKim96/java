@@ -77,85 +77,9 @@ public class Maps {
 	}
 	
 	
-	public void startDungeon() {
-        if (mapType.equals("던전")) {
-            System.out.println("던전 " + mapName + "에 입장합니다!");
-            // 플레이어 객체와 적 객체를 생성하여 배틀 클래스에 전달합니다.
-            Player player = new Player(); // 플레이어 객체 생성 (해당 부분은 실제로는 플레이어 정보를 가져오는 방식으로 구현해야 합니다)
-            Battle battle = new Battle(createEnemiesForDungeon(), player); // 적 객체 생성 및 배틀 클래스에 전달
-            battle.startBattle(); // 전투 시작
-        } else {
-            System.out.println("이 맵은 던전이 아닙니다.");
-        }
-    }
-	 
-	
-	private ArrayList<Enemy> createEnemiesForDungeon() {
-        ArrayList<Enemy> enemies = new ArrayList<>();
-        // 적을 생성하고 ArrayList에 추가하는 로직을 구현해야 합니다.
-        // 예를 들어, 던전에 등장할 적들을 데이터베이스에서 불러오거나 랜덤하게 생성할 수 있습니다.
-        // 이 예시에서는 더미 데이터를 사용하여 적을 생성합니다.
-        enemies.add(new Enemy("Skeleton", 50, 10, 5, 20, 30));
-        enemies.add(new Enemy("Goblin", 70, 8, 7, 25, 40));
-        return enemies;
-    }
-	 
-	/*
-	 *  public void startDungeon() {
-        if (mapType.equals("던전")) {
-            System.out.println("던전 " + mapName + "에 입장합니다!");
-            // 플레이어 객체와 적 객체를 생성하여 배틀 클래스에 전달합니다.
-            Player player = new Player(); // 플레이어 객체 생성 (해당 부분은 실제로는 플레이어 정보를 가져오는 방식으로 구현해야 합니다)
-            Battle battle = new Battle(player, createEnemiesForDungeon()); // 적 객체 생성 및 배틀 클래스에 전달
-            battle.startBattle(); // 전투 시작
-        } else {
-            System.out.println("이 맵은 던전이 아닙니다.");
-        }
-	 */
-	
 	
 	/*
-	 * private ArrayList<Enemy> createEnemiesForDungeon() {
-        ArrayList<Enemy> enemies = new ArrayList<>();
-        // 적을 생성하고 ArrayList에 추가하는 로직을 구현해야 합니다.
-        // 예를 들어, 던전에 등장할 적들을 데이터베이스에서 불러오거나 랜덤하게 생성할 수 있습니다.
-        // 이 예시에서는 더미 데이터를 사용하여 적을 생성합니다.
-        enemies.add(new Enemy("Skeleton", 50, 10, 5, 20, 30));
-        enemies.add(new Enemy("Goblin", 70, 8, 7, 25, 40));
-        return enemies;
-	 */
-	
-	/* 참고!!
-	 * public ArrayList<Enemy> loadEnemies() {
-        ArrayList<Enemy> enemies = new ArrayList<>();
-        try (Connection conn = getConnection()) {
-            String query = "SELECT * FROM enemies";
-            PreparedStatement statement = conn.prepareStatement(query);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                String name = rs.getString("name");
-                int health = rs.getInt("health");
-                int strength = rs.getInt("strength");
-                int agility = rs.getInt("agility");
-                int experience = rs.getInt("experience");
-                int money = rs.getInt("money");
-                enemies.add(new Enemy(name, health, strength, agility, experience, money));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return enemies;
-	 */
-	
-	
-	/*
-	 * // 던전 타입인 경우에만 ArrayList를 초기화합니다.
-        if (mapType.equals("던전")) {
-            this.enemies = new ArrayList<>();
-        } else {
-            this.enemies = null; // 다른 타입의 맵에서는 null을 할당합니다.
-        }
-    }
+	 * 
 
     // 던전 타입의 맵에 적을 추가하는 메서드
     public void addEnemy(Enemy enemy) {

@@ -3,7 +3,10 @@ package vo;
 import java.util.ArrayList;
 import java.util.Random;
 
+import controller.GameController;
+
 public class Battle {
+	private GameController gc = new GameController();
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	private Player player =  new Player();
 	
@@ -38,6 +41,7 @@ public class Battle {
         System.out.println("전투가 시작되었습니다!");
         
         for (Enemy enemy : enemies) {
+        	this.beforeBattleMessage(enemy);
         	while (enemy.getHealth() > 0 && player.getHp() > 0) {
         		// 플레이어와 적이 서로 공격
         		this.playerAttack(enemy);
@@ -48,16 +52,37 @@ public class Battle {
         	}
         	if(player.getHp() <= 0) {
         		System.out.println("플레이어가 전투에서 패배했습니다!");
-        		break;
+        		// 전투 패배 시 패널티 등록
+        		return;
         	}else {
-            	System.out.println(enemy.getName() + "를 처치했습니다!");
-                player.setExperience(player.getExperience() + enemy.getExperience());
-                player.setMoney(player.getMoney() + enemy.getMoney());
+               this.saveExpAndMoney(player, enemy);
+               this.afterBattleMessage(enemy);
         	}
         }
         if(player.getHp() > 0) {
         	 System.out.println("모든 적을 처치했습니다. 전투에서 승리하셨습니다!");
         }
+	}
+	
+	
+	// 싸움 전 메세지
+	public void beforeBattleMessage(Enemy enemy) {
+		System.out.println(enemy.getName() + "가 나타났다!");
+		System.out.println(enemy);
+	}
+	
+	//싸움 후 저장
+	public void saveExpAndMoney(Player player, Enemy enemy) {
+		player.setExperience(player.getExperience() + enemy.getExperience());
+        player.setMoney(player.getMoney() + enemy.getMoney());
+        gc.savePlayerInfo(player);
+	}
+	// 싸움 후 메세지
+	public void afterBattleMessage(Enemy e) {
+		System.out.println(e.getName() + "를 처치했습니다!");
+		System.out.println("싸움이 끝났습니다.");
+		System.out.println("획득한 경험치 : " + e.getExperience());
+		System.out.println("획득한 전리품 : " + e.getMoney() + "원");
 	}
 	
 	/**

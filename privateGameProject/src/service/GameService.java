@@ -50,6 +50,49 @@ public class GameService {
 		return result;
 	}
 
+	public int insertMaps_Enemies(Maps m, Enemy en) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new GameDao().insertMaps_Enemies(conn, m, en);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	
+	
+	public Player selectPlayer(int id) {
+		Connection conn = JDBCTemplate.getConnection();
+		Player p = new GameDao().selectPlayer(conn, id);
+		JDBCTemplate.close(conn);
+		return p;
+	}
+	
+	public Enemy selectEnemy(int id) {
+		Connection conn = JDBCTemplate.getConnection();
+		Enemy en = new GameDao().selectEnemy(conn, id);
+		JDBCTemplate.close(conn);
+		return en;
+	}
+	
+	public Maps selectMap(int id) {
+		Connection conn = JDBCTemplate.getConnection();
+		Maps m = new GameDao().selectMap(conn, id);
+		JDBCTemplate.close(conn);
+		return m;
+	}
+	
+	
+	
 	public ArrayList<Player> selectPlayers() {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -79,6 +122,17 @@ public class GameService {
 		
 		return list;
 	}
+	
+	public ArrayList<Enemy> selectEnemiesFromMaps_Enemies(Maps m) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		ArrayList<Enemy> list = new GameDao().selectEnemiesFromMaps_Enemies(conn, m);
+
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
 
 	public int deletePlayer(String name) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -181,4 +235,6 @@ public class GameService {
 		
 		return result;
 	}
+
+
 }

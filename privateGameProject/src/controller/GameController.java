@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import service.GameService;
 import view.GameMenu;
+import vo.Battle;
 import vo.Enemy;
 import vo.Maps;
 import vo.Player;
@@ -17,23 +18,42 @@ public class GameController {
 	
 	// 전투 시작
 	
-	public void startGame() {
-		
-	}
-	
 	// 맵에 추가하고 싶은 몬스터들을 골라
 	// MAPS_ENEMIES 테이블에 넣는 메소드
-	public void insertMaps_Enemies() {
-		System.out.println("========== 맵에 추가하고 싶은 몬스터 선택 =========");
-		// -- 몬스터 조회 메소드
-		System.out.println("몬스터의 번호 입력 : ");
-	}
-
 	
 
+	public void startDungeon(Player player, Maps m) {
+        // 플레이어 객체와 적 객체를 생성하여 배틀 클래스에 전달합니다.
+        Battle battle = new Battle(m.getEnemies(), player); // 적 객체 생성 및 배틀 클래스에 전달
+        battle.startBattle(); // 전투 시작
+	} 
+
+	// 플레이어 저장 메소드
+	public void savePlayerInfo(Player p) {
+		 
+		 int result = new GameService().updatePlayer(p);
+	        
+	    	if (result > 0 ) { // 성공 화면
+				new GameMenu().displaySuccess("플레이어 저장 성공");
+			}
+			else { // 실패 화면
+				new GameMenu().displayFail("플레이어 저장 실패");
+			}
+	}
 	
 	//========================입력 메소드==========================	
 		
+	public void insertMaps_Enemies(Maps m, Enemy en) {
+		int result = new GameService().insertMaps_Enemies(m, en);
+		
+		if (result > 0 ) { // 성공 화면
+			new GameMenu().displaySuccess("성공적으로 매핑됐습니다.");
+		}
+		else { // 실패 화면
+			new GameMenu().displayFail("매핑에 실패했습니다.");
+		}
+	}
+	
 		
 	public void insertPlayer(String name, String job, int level,  int maxExperience,
 			int experience, int maxHp, int hp, int maxMp, int mp, int strength, int intelligence,
@@ -80,6 +100,7 @@ public class GameController {
 			
 		}
 	}
+	
 	
 	//========================수정 메소드==========================
 	public void updatePlayer(String name, String job, int level,  int maxExperience,
@@ -164,6 +185,51 @@ public class GameController {
 		return list;
 	}
 	
+	public ArrayList<Enemy> selectEnemiesFromMaps_Enemies(Maps m) {
+		ArrayList<Enemy> list = new GameService().selectEnemiesFromMaps_Enemies(m);
+		if(list.isEmpty()) { // list 비어있을 경우
+			new GameMenu().displayNoData("조회 결과가 없습니다.");
+		}
+		else { // 조회된 데이터가 있을 경우
+			new GameMenu().displayList(list);
+		}
+		return list;
+	}
+	
+	
+	public Player selectPlayer(int id) {
+		Player p = new GameService().selectPlayer(id);
+		if(p != null) { // list 비어있을 경우
+			new GameMenu().displaySuccess("플레이어를 호출했습니다");
+		}
+		else { // 조회된 데이터가 있을 경우
+			new GameMenu().displayFail("플레이어 호출 실패했습니다");
+		}
+		return p;
+	}
+	
+	public Enemy selectEnemy(int id) {
+		Enemy en = new GameService().selectEnemy(id);
+		if(en != null) { // list 비어있을 경우
+			new GameMenu().displaySuccess("적을 호출했습니다");
+		}
+		else { // 조회된 데이터가 있을 경우
+			new GameMenu().displayFail("적 호출 실패했습니다");
+		}
+		return en;
+	}
+	
+	public Maps selectMap(int id) {
+		Maps m = new GameService().selectMap(id);
+		if(m != null) { // list 비어있을 경우
+			new GameMenu().displaySuccess("맵을 호출했습니다");
+		}
+		else { // 조회된 데이터가 있을 경우
+			new GameMenu().displayFail("맵 호출 실패했습니다");
+		}
+		return m;
+	}
+	
 	
 	//=========================삭제 메소드==========================
 	
@@ -202,5 +268,6 @@ public class GameController {
 		}
 	}
 
+	
 	
 }

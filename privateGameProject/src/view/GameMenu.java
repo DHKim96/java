@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import controller.GameController;
+import vo.Enemy;
+import vo.Maps;
+import vo.Player;
 
 
 public class GameMenu {
@@ -47,6 +50,7 @@ public class GameMenu {
 	        System.out.println("1. 생성 모드");
 	        System.out.println("2. 수정 모드");
 	        System.out.println("3. 삭제 모드");
+	        System.out.println("4. 조회 모드");
 	        System.out.println("0. 시작 메뉴로 돌아가기");
 	        System.out.print("메뉴 입력 : ");
 	        int menu = sc.nextInt();
@@ -60,6 +64,9 @@ public class GameMenu {
 	        	break;
 	        case 3:
 	        	this.adminDeleteMenu();
+	        	break;
+	        case 4:
+	        	this.adminSelectMenu();
 	        	break;
 	        case 0:
 	        	System.out.println("메인 메뉴로 돌아갑니다.");
@@ -136,6 +143,7 @@ public class GameMenu {
             System.out.println("1. 플레이어 생성");
             System.out.println("2. 적 생성");
             System.out.println("3. 맵 생성");
+            System.out.println("4. 몬스터를 맵에 추가하기");
             System.out.println("0. 뒤로 가기");
             System.out.print("메뉴 입력 : ");
             int menu = sc.nextInt();
@@ -150,6 +158,39 @@ public class GameMenu {
                     break;
                 case 3:
                     this.createMap();
+                    break;
+                case 4:
+                	this.putEnemiesInMaps();
+                	break;
+                case 0:
+                	System.out.println("관리자 메뉴로 돌아갑니다.");
+                    return;
+                default:
+                    System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
+            }
+        }
+	}
+	
+	public void adminSelectMenu() {
+		while (true) {
+            System.out.println("======== 조회 모드 =========");
+            System.out.println("1. 플레이어 전체 조회");
+            System.out.println("2. 적 전체 조회");
+            System.out.println("3. 맵 전체 조회");
+            System.out.println("0. 뒤로 가기");
+            System.out.print("메뉴 입력 : ");
+            int menu = sc.nextInt();
+            sc.nextLine();
+
+            switch (menu) {
+                case 1:
+                    gc.selectPlayers();
+                    break;
+                case 2:
+                    gc.selectEnemies();
+                    break;
+                case 3:
+                    gc.selectMaps();
                     break;
                 case 0:
                 	System.out.println("관리자 메뉴로 돌아갑니다.");
@@ -173,7 +214,7 @@ public class GameMenu {
 
 	        switch (menu) {
 	            case 1:
-	                gc.startGame();
+	            	this.startGame();
 	                break;
 	            case 2:
 	                gc.selectPlayers();
@@ -350,6 +391,115 @@ public class GameMenu {
         gc.updateMap(mapName, mapType, requiredLevel);
 	}
 	
+	
+	
+	
+	// ====================== 기타 메소드 ===============
+	
+	
+	//몬스터를 추가하고 싶은 맵을 고르는 메소드
+	public void putEnemiesInMaps() {
+		System.out.println("몬스터를 추가하고 싶은 맵을 고르세요");
+		gc.selectMaps();
+		System.out.println("맵 번호 : ");
+		int mId = sc.nextInt();
+		sc.nextLine();
+		Maps m = gc.selectMap(mId);
+		this.putEnemies(m);
+	}
+	
+	// 맵에 추가하고 싶은 몬스터들을 고르는 메소드
+	public void putEnemies(Maps m) {
+		System.out.println("========== 맵에 추가하고 싶은 몬스터 선택 =========");
+		Enemy e = null;
+		gc.selectEnemies();
+		while(true) {
+			System.out.println("몬스터의 번호 입력 : ");
+			int select = sc.nextInt();
+			sc.nextLine();
+			e = gc.selectEnemy(select);
+			
+			gc.insertMaps_Enemies(m, e);
+			
+			System.out.println("계속 추가하시겠습니까?(y/n) : ");
+			char c = sc.next().charAt(0);
+			sc.nextLine();
+			if(c == 'n') {
+				System.out.println("생성 메뉴로 돌아갑니다.");
+				return;
+			}
+		}
+	}
+	
+	
+	//플레이할 캐릭터 선택하는 메소드
+	public Player selectPlayerByPlayerId(int num){
+		Player p = new Player();
+		p = gc.selectPlayer(num);
+		return p;
+	}
+	
+	public void startGame() {
+		Player player = new Player();
+		Maps m = new Maps();
+		
+		System.out.println("======= 게임을 시작합니다. ========");
+		
+		int select = this.selectPlayerIdForPlay();
+		
+		player = this.selectPlayerByPlayerId(select);
+		
+		while(true) {
+			System.out.println("======= 원하시는 맵에 입장합니다. =========");
+			int mId = this.selectMapIdForPlay();
+			m = gc.selectMap(mId);
+			System.out.println(m.getMapId() + "에 입장합니다!");
+			if(m.getMapType().equals("던전")) {
+				ArrayList<Enemy> list = new ArrayList<>();
+				list = gc.selectEnemiesFromMaps_Enemies(m);
+				m.setEnemies(list);
+				gc.startDungeon(player, m);
+				char c =this.keepFightOrRunaway();
+				if(c == 'n') {
+					break;
+				}
+			}else {
+				System.out.println("이 맵은 던전이 아닙니다.");
+			}
+		}
+	}
+	
+	
+	// ====================
+	public char keepFightOrRunaway() {
+		System.out.println("계속 사냥하시겠습니까?(y/n)");
+		char c = sc.next().charAt(0);
+		return c;
+	}
+	
+	//================== 응답 화면 =================
+	
+	
+	public int selectMapIdForPlay() {
+		System.out.println("========== 입장할 맵을 선택해주세요 =========");
+		gc.selectMaps();
+		System.out.println("맵 번호 입력 : ");
+		int select = sc.nextInt();
+		sc.nextLine();
+		return select;
+	}
+
+	
+	public int selectPlayerIdForPlay() {
+		System.out.println("======= 플레이할 플레이어를 선택해주세요.========");
+		gc.selectPlayers();
+		System.out.print("플레이어 번호 입력 : ");
+		int select = sc.nextInt();
+		sc.nextLine();
+		return select;
+	}
+	
+	
 	public void displaySuccess(String message) {
 		System.out.println("\n서비스 요청 성공 : " + message);
 	}
@@ -379,6 +529,7 @@ public class GameMenu {
 		String name = sc.nextLine();
 		return name;
 	}
+	
 	
 	
 	

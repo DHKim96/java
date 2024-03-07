@@ -91,7 +91,7 @@ public class Enemy {
 	@Override
 	public String toString() {
 		return "적 번호 : " + eId + 
-				"\n 적 이름" + name + 
+				"\n 적 이름 : " + name + 
 				"\n 체력 : " + health + 
 				"\n 힘 : " + strength + 
 				"\n 민첩 : " + agility + 
