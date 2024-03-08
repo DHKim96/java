@@ -37,6 +37,7 @@ public class GameMenu {
                     break;
                 case 0:
                     System.out.println("═══════════════════이용해주셔서 감사합니다. 다음에 또 방문해주세요.═══════════════════");
+                    sc.close();
                     return;
                 default:
                     System.out.println("! 잘못 입력하셨습니다. 다시 입력해주세요. !");
@@ -491,19 +492,51 @@ public class GameMenu {
 		return c;
 	}
 	
+	
+	//레벨업 시 증가할 스탯 정하는 메소드
+	public void levelUp(Player p) {
+		int num = this.levelUpMessage(p);
+		for(int i = 0; i < 5 ; i++) {
+			switch(num) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			default :
+				System.out.println("잘못된 숫자입니다. 다시 입력해주세요");
+				i--;
+			}
+		}
+		
+		
+	}
+	
+	//레벨업 시 표시할 메세지 & 올릴 스탯 항목을 리턴
+	private int levelUpMessage(Player p) {
+		int select = 0;
+		System.out.println("===========업그레이드할 스탯==========");
+		System.out.println("현재 최대Hp : " + p.getMaxHp());
+		System.out.println("현재 최대Mp : " + p.getMaxMp());
+		System.out.println("현재 힘 : " + p.getStrength());
+		System.out.println("현재 지능 : " + p.getIntelligence());
+		System.out.println("현재 민첩 : " + p.getAgility());
+		
+		System.out.println("향상시킬 스탯 ");
+		System.out.println("1. HP / 2.MP / 3.힘 / 4.지능 / 5.민첩");
+		System.out.print("번호 입력 : ");
+		select = sc.nextInt();
+		sc.nextLine();
+		return select;
+	}
+	
 	//================== 응답 화면 =================
 	
-	
-	public void ascii() {
-		System.out.println("╔════════════════════════════════════════╗");
-        System.out.println("║               관리자 메뉴                 ║");
-        System.out.println("║			  1. 생성 메뉴					 ║");  
-        System.out.println("║			  2. 수정 메뉴					 ║");
-        System.out.println("║			  3. 삭제 메뉴					 ║");
-        System.out.println("║			  4. 조회 모드					 ║");
-        System.out.println("║			  0. 시작 메뉴로 돌아가기		 ║");
-        System.out.println("╚════════════════════════════════════════╝");
-	}
 	
 	
 	public int selectMapIdForPlay() {

@@ -41,6 +41,15 @@ public class GameController {
 			}
 	}
 	
+	//레벨업 시 스탯 증가 메소드
+	public void levelUp(Player player, int maxHp, int maxMp, int strength, int intelligence, int agility) {
+		player.setMaxHp(player.getMaxHp() + maxHp);
+		player.setMaxMp(player.getMaxMp() + maxMp);
+		player.setStrength(player.getStrength() + strength);
+		player.setIntelligence(player.getIntelligence() + intelligence);
+		player.setAgility(player.getAgility() + agility);
+	}
+	
 	//========================입력 메소드==========================	
 		
 	public void insertMaps_Enemies(Maps m, Enemy en) {

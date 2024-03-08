@@ -39,13 +39,17 @@ public class Battle {
 	 */
 	public void startBattle() {
         System.out.println("전투가 시작되었습니다!");
-        
-        for (Enemy enemy : enemies) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(this.enemies.size()); 
+        while(true) {
+        	// 랜덤한 적들이 등장
+        	Enemy enemy = this.enemies.get(randomIndex);
         	this.beforeBattleMessage(enemy);
         	while (enemy.getHealth() > 0 && player.getHp() > 0) {
         		// 플레이어와 적이 서로 공격
+        		System.out.println();
         		this.playerAttack(enemy);
-        		
+        		System.out.println();
         		if(enemy.getHealth() > 0) {
         			this.enemyAttack(enemy);
         		}
@@ -55,12 +59,12 @@ public class Battle {
         		// 전투 패배 시 패널티 등록
         		return;
         	}else {
+        		System.out.println();
                this.saveExpAndMoney(player, enemy);
+               System.out.println();
                this.afterBattleMessage(enemy);
+               return;
         	}
-        }
-        if(player.getHp() > 0) {
-        	 System.out.println("모든 적을 처치했습니다. 전투에서 승리하셨습니다!");
         }
 	}
 	
@@ -81,6 +85,7 @@ public class Battle {
 	public void afterBattleMessage(Enemy e) {
 		System.out.println(e.getName() + "를 처치했습니다!");
 		System.out.println("싸움이 끝났습니다.");
+		System.out.println("======= 전투 후 정산 ======");
 		System.out.println("획득한 경험치 : " + e.getExperience());
 		System.out.println("획득한 전리품 : " + e.getMoney() + "원");
 	}

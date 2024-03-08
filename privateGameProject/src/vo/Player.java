@@ -202,8 +202,7 @@ public class Player {
 				"\n 소지금 : " + money;
 	}
     
-    
-    
+	
     
     
 }
